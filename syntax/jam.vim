@@ -25,6 +25,8 @@
 
 
 " Remove any old syntax stuff hanging around
+setlocal iskeyword +=-
+
 sy clear
 
 sy case match
@@ -71,7 +73,7 @@ sy match jamVar '<[^>]*>'
 " (there are no special escapes like \x01 or \n)
 sy match jamStringSpecial "\\." contained
 sy cluster jamStringElement contains=jamStringSpecial,jamVar
-sy region jamString matchgroup=jamStringStartEnd start='"' end='"' contains=@jamStringElement
+sy region jamString matchgroup=jamStringStartEnd start='\(\\\)\@<!"' end='"' skip='\\.' contains=@jamStringElement
 
 
 " Comments
@@ -82,8 +84,8 @@ sy keyword jamTodo TODO FIXME XXX contained
 
 " Errors
 " semicolons can't be preceded or followed by anything but whitespace
-sy match jamSemiError "[^ \t];"hs=s+1
-sy match jamSemiError ";[^ \t]"he=e-1
+sy match jamSemiError "\( \|\t\|\n\)\@<!;"
+sy match jamSemiError ";\( \|\t\|\n\)\@!"
 " colons must either have whitespace on both sides (separating clauses of
 " rules) or on neither side (e.g. <variant>release:<define>NDEBUG)
 sy match jamColonError "[^ \t]:[ \t]"hs=s+2
