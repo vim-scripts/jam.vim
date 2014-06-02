@@ -25,6 +25,8 @@
 
 
 " Remove any old syntax stuff hanging around
+setlocal iskeyword +=-
+
 sy clear
 
 sy case match
