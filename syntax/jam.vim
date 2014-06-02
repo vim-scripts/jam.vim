@@ -73,7 +73,7 @@ sy match jamVar '<[^>]*>'
 " (there are no special escapes like \x01 or \n)
 sy match jamStringSpecial "\\." contained
 sy cluster jamStringElement contains=jamStringSpecial,jamVar
-sy region jamString matchgroup=jamStringStartEnd start='"' end='"' contains=@jamStringElement
+sy region jamString matchgroup=jamStringStartEnd start='\(\\\)\@<!"' end='"' skip='\\.' contains=@jamStringElement
 
 
 " Comments
